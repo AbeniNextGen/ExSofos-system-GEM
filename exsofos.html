@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExSofós System GEN</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; }
+h1,h2,h3,h4,h5,h6,.font-heading { font-family: 'Sora', sans-serif; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+@keyframes pulse-ring { 0% { transform:scale(0.8); opacity:0.6; } 100% { transform:scale(1.4); opacity:0; } }
+@keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
+.fade-up { animation: fadeUp 0.7s ease-out both; }
+.fade-up-d1 { animation-delay: 0.1s; }
+.fade-up-d2 { animation-delay: 0.2s; }
+.fade-up-d3 { animation-delay: 0.3s; }
+.fade-up-d4 { animation-delay: 0.4s; }
+.float-anim { animation: float 4s ease-in-out infinite; }
+.hero-grid {
+  background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridMove 8s linear infinite;
+}
+.service-card { transition: all 0.3s ease; }
+.service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+.step-line { position:relative; }
+.step-line::after { content:''; position:absolute; top:50%; right:-50%; width:100%; height:2px; background:linear-gradient(90deg,#0f172a,transparent); }
+.nav-link { position:relative; }
+.nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:#0f172a; transition:width 0.3s; }
+.nav-link:hover::after { width:100%; }
+.chatbot-btn { position:fixed; bottom:24px; right:24px; z-index:50; }
+.chatbot-btn .ring { position:absolute; inset:-8px; border-radius:50%; border:2px solid #0f172a; animation: pulse-ring 2s ease-out infinite; }
+.observed { opacity:0; transform:translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.observed.visible { opacity:1; transform:translateY(0); }
+</style>
+  <script>
+tailwind.config = {
+  theme: { extend: { colors: {
+    brand: { dark:'#0f172a', mid:'#1e293b', light:'#f8fafc', accent:'#3b82f6', surface:'#ffffff' }
+  }}}
+}
+</script>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="w-full h-full overflow-auto bg-brand-light" style="background:#f8fafc;"><!-- NAV -->
+   <nav id="navbar" class="fixed top-0 left-0 w-full z-40 transition-all duration-300" style="background:rgba(248,250,252,0.85);backdrop-filter:blur(12px);">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"><a href="#hero" class="flex items-center gap-3"> <img src="https://i.postimg.cc/6qWmXCB3/Ex-Sofos.png" alt="ExSofós Logo" class="h-9 w-9 object-contain" loading="lazy" onerror="this.style.background='#0f172a';this.style.borderRadius='8px';this.alt='Logo';"> <span class="font-heading font-bold text-lg" style="color:#0f172a;">ExSofós <span class="font-light">System GEN</span></span> </a>
+     <div class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:#1e293b;"><a href="#about" class="nav-link">About</a> <a href="#services" class="nav-link">Services</a> <a href="#process" class="nav-link">Process</a> <a href="#portfolio" class="nav-link">Portfolio</a> <a href="#ai" class="nav-link">AI</a> <a href="#contact" class="px-5 py-2.5 rounded-full text-white text-sm font-semibold transition hover:opacity-90" style="background:#0f172a;">Contact</a>
+     </div><button id="mobileToggle" class="md:hidden p-2" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')"><i data-lucide="menu" style="width:24px;height:24px;color:#0f172a;"></i></button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3 text-sm font-medium" style="color:#1e293b;"><a href="#about" onclick="this.parentElement.classList.add('hidden')">About</a> <a href="#services" onclick="this.parentElement.classList.add('hidden')">Services</a> <a href="#process" onclick="this.parentElement.classList.add('hidden')">Process</a> <a href="#portfolio" onclick="this.parentElement.classList.add('hidden')">Portfolio</a> <a href="#ai" onclick="this.parentElement.classList.add('hidden')">AI</a> <a href="#contact" onclick="this.parentElement.classList.add('hidden')">Contact</a>
+    </div>
+   </nav><!-- HERO -->
+   <section id="hero" class="relative pt-32 pb-24 md:pt-44 md:pb-36 overflow-hidden">
+    <div class="absolute inset-0 hero-grid opacity-40"></div>
+    <div class="absolute top-20 right-10 w-72 h-72 rounded-full opacity-20" style="background:radial-gradient(circle,#3b82f6,transparent);filter:blur(80px);"></div>
+    <div class="absolute bottom-10 left-10 w-56 h-56 rounded-full opacity-15" style="background:radial-gradient(circle,#0f172a,transparent);filter:blur(60px);"></div>
+    <div class="relative max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
+     <div class="flex-1 text-center lg:text-left">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 fade-up" style="background:#0f172a;color:#fff;"><i data-lucide="zap" style="width:14px;height:14px;"></i> Next-Gen Digital Systems
+      </div>
+      <h1 id="heroHeadline" class="font-heading text-4xl md:text-6xl lg:text-7xl font-bold leading-tight fade-up fade-up-d1" style="color:#0f172a;">Intelligent Systems.<br>
+       Built for Real Growth.</h1>
+      <p id="heroSubtext" class="mt-6 text-lg md:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed fade-up fade-up-d2" style="color:#1e293b;opacity:0.7;">We architect smart digital platforms, automation tools, and AI-powered solutions that help businesses in emerging markets scale with clarity and precision.</p>
+      <div class="mt-10 flex flex-wrap gap-4 justify-center lg:justify-start fade-up fade-up-d3"><a href="#contact" class="px-8 py-4 rounded-full text-white font-semibold transition hover:scale-105" style="background:#0f172a;">Get Started</a> <a href="#contact" class="px-8 py-4 rounded-full font-semibold border-2 transition hover:scale-105" style="border-color:#0f172a;color:#0f172a;">Contact Us</a>
+      </div>
+     </div>
+     <div class="flex-1 flex justify-center fade-up fade-up-d4">
+      <div class="relative float-anim">
+       <div class="w-64 h-64 md:w-80 md:h-80 rounded-3xl flex items-center justify-center" style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);box-shadow:0 40px 80px rgba(15,23,42,0.3);">
+        <svg viewbox="0 0 120 120" width="160" height="160" fill="none" stroke="#3b82f6" stroke-width="1"><circle cx="60" cy="60" r="50" stroke-dasharray="4 8" opacity="0.3" /> <circle cx="60" cy="60" r="35" stroke-dasharray="4 8" opacity="0.5" /> <circle cx="60" cy="60" r="20" stroke-dasharray="4 8" opacity="0.7" /> <circle cx="60" cy="60" r="6" fill="#3b82f6" stroke="none" /> <line x1="60" y1="10" x2="60" y2="25" opacity="0.4" /> <line x1="60" y1="95" x2="60" y2="110" opacity="0.4" /> <line x1="10" y1="60" x2="25" y2="60" opacity="0.4" /> <line x1="95" y1="60" x2="110" y2="60" opacity="0.4" />
+        </svg>
+       </div>
+       <div class="absolute -top-4 -right-4 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg" style="background:#fff;"><i data-lucide="brain" style="width:28px;height:28px;color:#3b82f6;"></i>
+       </div>
+       <div class="absolute -bottom-4 -left-4 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg" style="background:#fff;"><i data-lucide="cpu" style="width:28px;height:28px;color:#0f172a;"></i>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- ABOUT -->
+   <section id="about" class="py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="text-center mb-16 observed">
+      <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#3b82f6;">Who We Are</p>
+      <h2 id="aboutTitle" class="font-heading text-3xl md:text-5xl font-bold" style="color:#0f172a;">Wisdom Beyond Limits</h2>
+     </div>
+     <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
+      <div class="observed">
+       <div class="p-8 rounded-3xl h-full" style="background:#fff;box-shadow:0 4px 40px rgba(0,0,0,0.04);">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background:#0f172a;">
+         <i data-lucide="sparkles" style="width:22px;height:22px;color:#3b82f6;"></i>
+        </div>
+        <h3 class="font-heading text-xl font-bold mb-3" style="color:#0f172a;">ExSofós</h3>
+        <p class="leading-relaxed" style="color:#1e293b;opacity:0.7;">Derived from the Greek "σοφός" (wise), <strong>ExSofós</strong> means <em>wisdom beyond limits</em>—the pursuit of knowledge that transcends boundaries. We believe that intelligent systems emerge when deep understanding meets purposeful design.</p>
+        <h3 class="font-heading text-xl font-bold mt-8 mb-3" style="color:#0f172a;">System GEN</h3>
+        <p class="leading-relaxed" style="color:#1e293b;opacity:0.7;"><strong>System</strong> represents structured, engineered solutions. <strong>GEN</strong> signals the next generation—new thinking for emerging digital economies. Together, they define our approach: building foundational systems designed for the future.</p>
+       </div>
+      </div>
+      <div class="flex flex-col gap-8 observed">
+       <div class="p-8 rounded-3xl" style="background:#0f172a;">
+        <div class="flex items-center gap-3 mb-4">
+         <i data-lucide="eye" style="width:20px;height:20px;color:#3b82f6;"></i>
+         <h4 class="font-heading font-bold text-white">Our Vision</h4>
+        </div>
+        <p id="visionText" class="leading-relaxed" style="color:rgba(255,255,255,0.7);">To become Africa's most trusted architect of intelligent digital infrastructure—empowering every organization with systems that think, adapt, and grow.</p>
+       </div>
+       <div class="p-8 rounded-3xl" style="background:#fff;box-shadow:0 4px 40px rgba(0,0,0,0.04);">
+        <div class="flex items-center gap-3 mb-4">
+         <i data-lucide="target" style="width:20px;height:20px;color:#3b82f6;"></i>
+         <h4 class="font-heading font-bold" style="color:#0f172a;">Our Mission</h4>
+        </div>
+        <p id="missionText" class="leading-relaxed" style="color:#1e293b;opacity:0.7;">We design, build, and deploy smart digital systems that solve real problems for businesses in under-digitized markets—with precision, elegance, and lasting impact.</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- SERVICES -->
+   <section id="services" class="py-24 md:py-32" style="background:#fff;">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="text-center mb-16 observed">
+      <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#3b82f6;">What We Do</p>
+      <h2 class="font-heading text-3xl md:text-5xl font-bold" style="color:#0f172a;">Services</h2>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="servicesGrid">
+     </div>
+    </div>
+   </section><!-- HOW WE WORK -->
+   <section id="process" class="py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="text-center mb-16 observed">
+      <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#3b82f6;">Our Process</p>
+      <h2 class="font-heading text-3xl md:text-5xl font-bold" style="color:#0f172a;">How We Work</h2>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="observed text-center">
+       <div class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-5" style="background:#0f172a;">
+        <span class="font-heading font-bold text-xl" style="color:#3b82f6;">01</span>
+       </div>
+       <h4 class="font-heading font-bold text-lg mb-2" style="color:#0f172a;">Understand</h4>
+       <p class="text-sm leading-relaxed" style="color:#1e293b;opacity:0.6;">We listen deeply to your goals, challenges, and market context before writing a single line of code.</p>
+      </div>
+      <div class="observed text-center">
+       <div class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-5" style="background:#0f172a;">
+        <span class="font-heading font-bold text-xl" style="color:#3b82f6;">02</span>
+       </div>
+       <h4 class="font-heading font-bold text-lg mb-2" style="color:#0f172a;">Design</h4>
+       <p class="text-sm leading-relaxed" style="color:#1e293b;opacity:0.6;">We craft blueprints and prototypes that align with your vision—clean, intentional, and user-centered.</p>
+      </div>
+      <div class="observed text-center">
+       <div class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-5" style="background:#0f172a;">
+        <span class="font-heading font-bold text-xl" style="color:#3b82f6;">03</span>
+       </div>
+       <h4 class="font-heading font-bold text-lg mb-2" style="color:#0f172a;">Build</h4>
+       <p class="text-sm leading-relaxed" style="color:#1e293b;opacity:0.6;">Our engineers build robust, scalable systems using modern technology stacks tailored to your needs.</p>
+      </div>
+      <div class="observed text-center">
+       <div class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-5" style="background:#0f172a;">
+        <span class="font-heading font-bold text-xl" style="color:#3b82f6;">04</span>
+       </div>
+       <h4 class="font-heading font-bold text-lg mb-2" style="color:#0f172a;">Launch &amp; Support</h4>
+       <p class="text-sm leading-relaxed" style="color:#1e293b;opacity:0.6;">We deploy with precision and provide ongoing support to ensure your system evolves with your business.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- PORTFOLIO -->
+   <section id="portfolio" class="py-24 md:py-32" style="background:#fff;">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="text-center mb-16 observed">
+      <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#3b82f6;">Our Work</p>
+      <h2 class="font-heading text-3xl md:text-5xl font-bold" style="color:#0f172a;">Projects</h2>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolioGrid"></div>
+    </div>
+   </section><!-- AI -->
+   <section id="ai" class="py-24 md:py-32 relative overflow-hidden">
+    <div class="absolute inset-0" style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);"></div>
+    <div class="absolute inset-0 hero-grid opacity-10"></div>
+    <div class="relative max-w-7xl mx-auto px-6 text-center">
+     <div class="observed">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6" style="background:rgba(59,130,246,0.2);color:#3b82f6;"><i data-lucide="bot" style="width:14px;height:14px;"></i> Coming Soon
+      </div>
+      <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-6">AI-Powered Intelligence</h2>
+      <p class="text-lg max-w-2xl mx-auto mb-12" style="color:rgba(255,255,255,0.6);">We're building intelligent AI tools—smart chatbots, automated workflows, and predictive systems—designed to give businesses in emerging markets an unfair advantage.</p>
+      <div class="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+       <div class="p-6 rounded-2xl" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+        <i data-lucide="message-circle" style="width:28px;height:28px;color:#3b82f6;" class="mx-auto mb-3"></i>
+        <h4 class="font-heading font-semibold text-white text-sm">Smart Chatbots</h4>
+       </div>
+       <div class="p-6 rounded-2xl" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+        <i data-lucide="workflow" style="width:28px;height:28px;color:#3b82f6;" class="mx-auto mb-3"></i>
+        <h4 class="font-heading font-semibold text-white text-sm">Auto Workflows</h4>
+       </div>
+       <div class="p-6 rounded-2xl" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+        <i data-lucide="bar-chart-3" style="width:28px;height:28px;color:#3b82f6;" class="mx-auto mb-3"></i>
+        <h4 class="font-heading font-semibold text-white text-sm">Predictive Analytics</h4>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- CONTACT -->
+   <section id="contact" class="py-24 md:py-32" style="background:#fff;">
+    <div class="max-w-7xl mx-auto px-6">
+     <div class="grid lg:grid-cols-2 gap-16">
+      <div class="observed">
+       <p class="text-sm font-semibold tracking-widest uppercase mb-4" style="color:#3b82f6;">Get In Touch</p>
+       <h2 class="font-heading text-3xl md:text-5xl font-bold mb-6" style="color:#0f172a;">Let's Build Something Intelligent</h2>
+       <p class="leading-relaxed mb-10" style="color:#1e293b;opacity:0.7;">Ready to digitize your operations? Reach out and let's discuss how we can help you grow.</p>
+       <div class="flex flex-col gap-4"><a href="https://t.me/CustomerRecipient" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-4 rounded-2xl transition hover:scale-[1.02]" style="background:#f8fafc;">
+         <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:#0f172a;">
+          <i data-lucide="send" style="width:20px;height:20px;color:#3b82f6;"></i>
+         </div>
+         <div>
+          <p class="font-semibold text-sm" style="color:#0f172a;">Telegram</p>
+          <p class="text-sm" style="color:#1e293b;opacity:0.6;">@CustomerRecipient</p>
+         </div></a> <a href="tel:+251928808281" class="flex items-center gap-4 p-4 rounded-2xl transition hover:scale-[1.02]" style="background:#f8fafc;">
+         <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:#0f172a;">
+          <i data-lucide="phone" style="width:20px;height:20px;color:#3b82f6;"></i>
+         </div>
+         <div>
+          <p class="font-semibold text-sm" style="color:#0f172a;">Phone</p>
+          <p class="text-sm" style="color:#1e293b;opacity:0.6;">+251 928 808 281</p>
+         </div></a>
+       </div>
+      </div>
+      <div class="observed">
+       <form id="contactForm" class="p-8 md:p-10 rounded-3xl" style="background:#f8fafc;">
+        <div class="mb-6"><label for="name" class="block text-sm font-semibold mb-2" style="color:#0f172a;">Name</label> <input type="text" id="name" placeholder="Your name" class="w-full px-5 py-3.5 rounded-xl text-sm outline-none transition focus:ring-2" style="background:#fff;border:1px solid #e2e8f0;color:#0f172a;focus:ring-color:#3b82f6;">
+        </div>
+        <div class="mb-6"><label for="email" class="block text-sm font-semibold mb-2" style="color:#0f172a;">Email</label> <input type="email" id="email" placeholder="you@example.com" class="w-full px-5 py-3.5 rounded-xl text-sm outline-none transition focus:ring-2" style="background:#fff;border:1px solid #e2e8f0;color:#0f172a;">
+        </div>
+        <div class="mb-8"><label for="message" class="block text-sm font-semibold mb-2" style="color:#0f172a;">Message</label> <textarea id="message" rows="4" placeholder="Tell us about your project..." class="w-full px-5 py-3.5 rounded-xl text-sm outline-none transition resize-none focus:ring-2" style="background:#fff;border:1px solid #e2e8f0;color:#0f172a;"></textarea>
+        </div><button type="submit" class="w-full py-4 rounded-xl text-white font-semibold transition hover:opacity-90" style="background:#0f172a;">Send Message</button>
+        <p id="formSuccess" class="hidden mt-4 text-center text-sm font-semibold" style="color:#3b82f6;">✓ Message sent! We'll get back to you soon.</p>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- FOOTER -->
+   <footer class="py-12 px-6" style="background:#0f172a;">
+    <div class="max-w-7xl mx-auto text-center">
+     <p id="footerMotto" class="font-heading text-lg font-semibold text-white mb-3">Innovate. Empower. Transform.</p>
+     <p class="text-sm mb-4" style="color:rgba(255,255,255,0.4);">© 2025 ExSofós System GEN. All rights reserved.</p>
+     <p class="text-xs" style="color:rgba(255,255,255,0.3);">Powered by <a href="https://t.me/besafe24" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-80" style="color:#3b82f6;">Abenezer J.Samuel</a></p>
+    </div>
+   </footer><!-- CHATBOT -->
+   <div class="chatbot-btn">
+    <div class="ring"></div><button id="chatbotToggle" class="relative w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition hover:scale-110" style="background:#0f172a;"> <i data-lucide="message-circle" style="width:24px;height:24px;color:#fff;"></i> </button>
+   </div>
+   <div id="chatbotPanel" class="hidden fixed bottom-24 right-6 z-50 w-80 rounded-3xl overflow-hidden shadow-2xl" style="background:#fff;border:1px solid #e2e8f0;">
+    <div class="p-5 flex items-center justify-between" style="background:#0f172a;">
+     <div class="flex items-center gap-3">
+      <i data-lucide="bot" style="width:20px;height:20px;color:#3b82f6;"></i><span class="font-heading font-semibold text-white text-sm">ExSofós AI</span>
+     </div><button onclick="document.getElementById('chatbotPanel').classList.add('hidden')" class="text-white opacity-60 hover:opacity-100"><i data-lucide="x" style="width:18px;height:18px;"></i></button>
+    </div>
+    <div class="p-6 text-center">
+     <div class="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center mb-4" style="background:#f8fafc;">
+      <i data-lucide="brain" style="width:28px;height:28px;color:#3b82f6;"></i>
+     </div>
+     <p class="font-heading font-semibold text-sm mb-2" style="color:#0f172a;">AI Assistant Coming Soon</p>
+     <p class="text-xs leading-relaxed" style="color:#1e293b;opacity:0.6;">Our intelligent chatbot is being trained to help you with instant support and project inquiries.</p><a href="https://t.me/CustomerRecipient" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 px-6 py-2.5 rounded-full text-white text-xs font-semibold" style="background:#0f172a;">Chat on Telegram →</a>
+    </div>
+   </div>
+  </div>
+  <script>
+// Services data
+const services = [
+  { icon:'globe', title:'Digital Platforms', desc:'Custom websites and web applications built for performance, scalability, and conversion—tailored to your market.' },
+  { icon:'settings', title:'Automation & Smart Systems', desc:'Streamline operations with intelligent automation—from bots to workflow engines that reduce costs and errors.' },
+  { icon:'palette', title:'Branding & Design', desc:'Visual identity systems that communicate trust and professionalism—logos, guidelines, and digital assets.' },
+  { icon:'trending-up', title:'Digital Marketing', desc:'Data-driven online presence strategies—SEO, social media, content, and paid campaigns that deliver results.' },
+  { icon:'lightbulb', title:'Tech Consulting', desc:'Strategic technology guidance to help you make informed decisions about digital transformation and growth.' },
+  { icon:'monitor', title:'Hardware Services', desc:'Computer troubleshooting, maintenance, and hardware solutions to keep your operations running smoothly.' }
+];
+
+const servicesGrid = document.getElementById('servicesGrid');
+services.forEach(s => {
+  const card = document.createElement('div');
+  card.className = 'service-card p-7 rounded-3xl cursor-pointer observed';
+  card.style.cssText = 'background:#f8fafc;border:1px solid #f1f5f9;';
+  card.innerHTML = `<div class="w-11 h-11 rounded-xl flex items-center justify-center mb-5" style="background:#0f172a;"><i data-lucide="${s.icon}" style="width:20px;height:20px;color:#3b82f6;"></i></div><h4 class="font-heading font-bold mb-2" style="color:#0f172a;">${s.title}</h4><p class="text-sm leading-relaxed service-desc hidden" style="color:#1e293b;opacity:0.6;">${s.desc}</p><button class="mt-3 text-xs font-semibold flex items-center gap-1 service-toggle" style="color:#3b82f6;"><span>Details</span><i data-lucide="chevron-down" style="width:14px;height:14px;"></i></button>`;
+  card.querySelector('.service-toggle').addEventListener('click', function(e) {
+    e.stopPropagation();
+    const desc = card.querySelector('.service-desc');
+    const txt = this.querySelector('span');
+    desc.classList.toggle('hidden');
+    txt.textContent = desc.classList.contains('hidden') ? 'Details' : 'Minimize';
+  });
+  servicesGrid.appendChild(card);
+});
+
+// Portfolio data
+const projects = [
+  { title:'E-Commerce Platform', tag:'Web App', desc:'Full-stack marketplace for an Ethiopian retail brand with payment integration.' },
+  { title:'Telegram Order Bot', tag:'Automation', desc:'Automated order management system processing 500+ daily transactions.' },
+  { title:'Brand Identity System', tag:'Branding', desc:'Complete visual identity for a fintech startup entering the East African market.' }
+];
+const portfolioGrid = document.getElementById('portfolioGrid');
+projects.forEach((p,i) => {
+  const colors = ['#0f172a','#1e293b','#0f172a'];
+  const accents = ['#3b82f6','#60a5fa','#3b82f6'];
+  const el = document.createElement('div');
+  el.className = 'rounded-3xl overflow-hidden observed';
+  el.style.cssText = 'background:#f8fafc;border:1px solid #f1f5f9;';
+  el.innerHTML = `<div class="h-48 flex items-center justify-center" style="background:${colors[i]};"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><rect x="10" y="10" width="60" height="60" rx="12" stroke="${accents[i]}" stroke-width="1.5" stroke-dasharray="4 4"/><circle cx="40" cy="40" r="15" stroke="${accents[i]}" stroke-width="1.5"/><circle cx="40" cy="40" r="5" fill="${accents[i]}"/></svg></div><div class="p-6"><span class="text-xs font-semibold px-3 py-1 rounded-full" style="background:#0f172a;color:#3b82f6;">${p.tag}</span><h4 class="font-heading font-bold mt-3 mb-2" style="color:#0f172a;">${p.title}</h4><p class="text-sm" style="color:#1e293b;opacity:0.6;">${p.desc}</p></div>`;
+  portfolioGrid.appendChild(el);
+});
+
+// Contact form
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  document.getElementById('formSuccess').classList.remove('hidden');
+  this.reset();
+  setTimeout(() => document.getElementById('formSuccess').classList.add('hidden'), 4000);
+});
+
+// Chatbot toggle
+document.getElementById('chatbotToggle').addEventListener('click', () => {
+  document.getElementById('chatbotPanel').classList.toggle('hidden');
+});
+
+// Intersection Observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.observed').forEach(el => observer.observe(el));
+
+// Init icons
+lucide.createIcons();
+
+// Element SDK
+const defaultConfig = {
+  hero_headline: 'Intelligent Systems.\nBuilt for Real Growth.',
+  hero_subtext: 'We architect smart digital platforms, automation tools, and AI-powered solutions that help businesses in emerging markets scale with clarity and precision.',
+  about_title: 'Wisdom Beyond Limits',
+  mission_text: 'We design, build, and deploy smart digital systems that solve real problems for businesses in under-digitized markets—with precision, elegance, and lasting impact.',
+  vision_text: "To become Africa's most trusted architect of intelligent digital infrastructure—empowering every organization with systems that think, adapt, and grow.",
+  footer_motto: 'Innovate. Empower. Transform.',
+  background_color: '#f8fafc',
+  surface_color: '#ffffff',
+  text_color: '#0f172a',
+  accent_color: '#3b82f6',
+  secondary_color: '#1e293b',
+  font_family: 'Sora',
+  font_size: 16
+};
+
+function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+  const el = (id) => document.getElementById(id);
+
+  el('heroHeadline').innerHTML = (c.hero_headline || defaultConfig.hero_headline).replace('\n','<br>');
+  el('heroSubtext').textContent = c.hero_subtext || defaultConfig.hero_subtext;
+  el('aboutTitle').textContent = c.about_title || defaultConfig.about_title;
+  el('missionText').textContent = c.mission_text || defaultConfig.mission_text;
+  el('visionText').textContent = c.vision_text || defaultConfig.vision_text;
+  el('footerMotto').textContent = c.footer_motto || defaultConfig.footer_motto;
+
+  document.getElementById('app').style.background = c.background_color;
+  document.querySelectorAll('.font-heading, h1, h2, h3, h4').forEach(e => {
+    e.style.fontFamily = `${c.font_family}, Sora, sans-serif`;
+  });
+
+  const base = c.font_size || 16;
+  document.querySelectorAll('h1').forEach(e => e.style.fontSize = '');
+  document.body.style.fontSize = base + 'px';
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: async (config) => applyConfig(config),
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get:()=>config.background_color||defaultConfig.background_color, set:(v)=>{config.background_color=v;window.elementSdk.setConfig({background_color:v});} },
+      { get:()=>config.surface_color||defaultConfig.surface_color, set:(v)=>{config.surface_color=v;window.elementSdk.setConfig({surface_color:v});} },
+      { get:()=>config.text_color||defaultConfig.text_color, set:(v)=>{config.text_color=v;window.elementSdk.setConfig({text_color:v});} },
+      { get:()=>config.accent_color||defaultConfig.accent_color, set:(v)=>{config.accent_color=v;window.elementSdk.setConfig({accent_color:v});} },
+      { get:()=>config.secondary_color||defaultConfig.secondary_color, set:(v)=>{config.secondary_color=v;window.elementSdk.setConfig({secondary_color:v});} }
+    ],
+    borderables: [],
+    fontEditable: { get:()=>config.font_family||defaultConfig.font_family, set:(v)=>{config.font_family=v;window.elementSdk.setConfig({font_family:v});} },
+    fontSizeable: { get:()=>config.font_size||defaultConfig.font_size, set:(v)=>{config.font_size=v;window.elementSdk.setConfig({font_size:v});} }
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ['hero_headline', config.hero_headline || defaultConfig.hero_headline],
+    ['hero_subtext', config.hero_subtext || defaultConfig.hero_subtext],
+    ['about_title', config.about_title || defaultConfig.about_title],
+    ['mission_text', config.mission_text || defaultConfig.mission_text],
+    ['vision_text', config.vision_text || defaultConfig.vision_text],
+    ['footer_motto', config.footer_motto || defaultConfig.footer_motto]
+  ])
+});
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ec08b4ac3be9dd1',t:'MTc3NjE0Njk5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
